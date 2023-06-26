@@ -1,11 +1,11 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
-from pip._internal.cli.spinners import open_spinner
-
+load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-tt**e6!!=%*jnz8sm*b3_#6xryxg9*$vi+-4gh78n%-znzxfqc'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 DEBUG = True
 
@@ -59,7 +59,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
+            "hosts": [(os.getenv('REDIS_HOST'), os.getenv('REDIS_PORT'))],
         },
     },
 }
